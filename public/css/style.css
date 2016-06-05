@@ -1,3 +1,22 @@
 .btn-h1-spacing {
   margin-top: 18px;
 }
+.categories {
+  font-size: 15px;
+  text-decoration: none;
+  color: #337AB7;
+}
+.delete_icon {
+  width: 10px;
+  height: 10px;
+  background-color: #EEE;
+}
+.category {
+  text-decoration: none; !!important;
+}
+.subcategory {
+  text-decoration: none; !!important;
+}
+.inch {
+  display: inline-block;
+}

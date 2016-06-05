@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Session;
+use Illuminate\Support\Facades\Input;
+use DB;
 
 class PostController extends Controller
 {
@@ -18,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
          $posts = Post::all();
-        
+
         return view('posts.index')->withPosts($posts);
     }
 
@@ -29,7 +31,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $post_type = DB::table('post_category')
+        ->join('post_subcategory','post_category.id', '=', 'post_subcategory.category_id')
+        ->select('category_name', 'subcategory_name')
+        ->orderby('category_name')->get();
+        return view('posts.create')->with('post_type', $post_type);
     }
 
     /**
@@ -41,20 +47,31 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, array(
-            'title' => 'required|max:20',
-            'body' => 'required|max:250'
+            'post_type' => 'required|max:20',
+            'body' => 'required|max:250',
+            'contacts' => 'required',
+            'image' => 'mimes:jpeg,bmp,png',
         ));
 
         $post = new Post;
 
-        $post->title = $request->title;
+        $post->post_type = $request->post_type;
         $post->body = $request->body;
+        $post->contacts = $request->contacts;
 
-        $post->save();
+        if (Input::hasFile('image')) {
+          $file = Input::file('image');
+          $fileRealName = $file->getClientOriginalName();
+          $fileName = rand(11111,99999) . '_' .$fileRealName;
+          $file->move('post_pictures', $fileName);
+          $post->image_src = $fileName;
+        }
 
-        Session::flash('success', 'The blog post was successfully save!');
+       $post->save();
 
-        return redirect()->route('posts.show', $post->id);
+       Session::flash('success', 'The blog post was successfully save!');
+
+       return redirect()->route('posts.show', $post->id);
     }
 
     /**

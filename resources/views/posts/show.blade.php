@@ -4,10 +4,13 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-8">
-    <h1>{{ $post->title }}</h1>
+  <div class="col-md-8 jumbotron">
+    <h1>{{ $post->post_type }}</h1>
 
-    <p class="lead">{{ $post->body }}</p>
+    <img src="/post_pictures/{{$post->image_src}}">
+
+    <p class="lead">Description: {{ $post->body }}</p>
+    <p class="lead contacts">Contacts: {{ $post->contacts }}</p>
   </div>
 
   <div class="col-md-4">
