@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Facades\Log;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use \Date;
 
 class AuthController extends Controller
 {
@@ -25,18 +27,17 @@ class AuthController extends Controller
 
     /**
      * Where to redirect users after login / registration.
-     *
+     *098960755
      * @var string
      */
-    protected $redirectTo = '/';
-
+    protected $redirectTo = '/myposts';
+    protected $username = 'username';
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
@@ -46,13 +47,25 @@ class AuthController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+
+    protected function validator(array $data) {
+      $rules = [
+            'username' => 'required|max:20|unique:users',
+            'email' => 'email|max:255|',
             'password' => 'required|min:6|confirmed',
-        ]);
+            'agree' => 'required',
+      ];
+      $messages = [
+      'username.required'    => 'Մուտքանուն լրացնելը պարտադիր է։',
+      'username.unique' => 'Մուտքանունն արդեն զբաղված է:',
+      'username.max'    => 'Մուտքանուն պետք է լինի 20 տառից ոչ ավել',
+      'password.required'    => 'Գաղտնաբառ լրացնելը պարտադիր է։',
+      'email.email'    => 'Էլեկտրոնային հասցեն վավեր չէ։',
+      'password.min'    => 'Գաղտանաբառր պետք է լինի ամենաքիչը 6 նիշ',
+      'password.confirmed'    => 'Գաղտանաբառերը չեն համընկնում',
+      'agree.required' => 'ՊԵտք է համաձայն լինել կայքի կանոնակարգին',
+      ];
+      return Validator::make($data, $rules, $messages);
     }
 
     /**
@@ -61,10 +74,15 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
-    {
+    protected function create(array $data) {
+        Log::info("date :".$data['birth_date']);
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'birth_date' => date($data['birth_date']),
+            'address' => $data['address'],
+            'telephone' => $data['telephone'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

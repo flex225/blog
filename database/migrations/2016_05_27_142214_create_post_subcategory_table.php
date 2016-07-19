@@ -17,7 +17,7 @@ class CreatePostSubcategoryTable extends Migration
     public function up()
     {
       Schema::create('post_subcategory', function (Blueprint $table) {
-          $table->increments('id');
+          $table->increments('id')->unsigned();
           $table->string('subcategory_name');
           $table->integer('category_id')->unsigned();
           $table->foreign('category_id')
