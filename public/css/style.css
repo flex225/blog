@@ -1,0 +1,57 @@
+
+body {
+  background-color: #e7e7e7;
+  font-family: 'Noto Sans Armenian', sans-serif;
+}
+.marg {
+
+}
+.feedback {
+  width:auto;
+  min-height: 50px;
+  background: #fff;
+  padding:10px;
+  margin-top: 10px;
+  border-radius:20px;
+}
+.p_desc {
+  float: left;
+  margin:0px;
+  padding-left: 5px;
+  font-weight: lighter;
+  padding-top:2px;
+}
+.p_leb {
+  float:left;
+}
+.prof {
+  width:200px;
+  height: 50px;
+}
+.logreg {
+  margin-top: 100px;
+  margin-right: 5px;
+}
+
+.btn-h1-spacing {
+  margin-top: 18px;
+}
+.categories {
+  font-size: 15px;
+  text-decoration: none;
+  color: #337AB7;
+}
+.delete_icon {
+  width: 10px;
+  height: 10px;
+  background-color: #EEE;
+}
+.category {
+  text-decoration: none; !important;
+}
+.subcategory {
+  text-decoration: none; !important;
+}
+.inch {
+  display: inline-block;
+}
