@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" style="margin-bottom:0px;">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -8,28 +8,34 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Laravel Blog</a>
+          <a class="navbar-brand" href="/"><img style="width:100px;height:50px;margin-top:-14px;" src="{{url('/icons/logo.png')}}"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="/ ">Home <span class="sr-only">(current)</span></a></li>
-            <li class="{{ Request::is('about') ? 'active' : '' }}"><a href="/about">About</a></li>
-            <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="/contact">Contact</a></li>
+          <ul class="nav navbar-nav" style="width:90%;">
+            <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="/ ">Գլխավոր էջ <span class="sr-only">(current)</span></a></li>
+            <li class="{{ Request::is('agreement') ? 'active' : '' }}"><a href="{{route('contacts')}}">Կանոնակարգ</a></li>
+            <li class="{{ Request::is('posts') ? 'active' : '' }}"><a href="{{ route('posts.index') }}">Գրառումներ</a></li>
+            @if(!Auth::check())
+              <li style="float:right"> <a href="{{route('register')}}" >Գրանցում</a></a></li>
+              <li style="float:right"><a href="{{route('login')}}">Մուտք</a>
+              </li>
+            @endif
           </ul>
+          @if(Auth::check())
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->username}} <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li><a href="{{url('/myposts')}}">Իմ գրառումները</a></li>
+                <li><a href="{{url('/profile', Auth::user()->id)}}">Իմ էջ</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li><a href="{{route('logout')}}">Ելք</a></li>
               </ul>
             </li>
           </ul>
+        @endif
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
  </nav>

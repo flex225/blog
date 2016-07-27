@@ -2,11 +2,16 @@
 
 @section('title','| Admin')
 
-  {{-- {{bcrypt('admin')}} --}}
+  {{ bcrypt('admin')}}
 @section('content')
   <div class="row">
       <div class=" col-md-offset-4 col-md-4">
       <h3>Sign In</h3>
+      @if(Session::has('error'))
+        <div class="alert alert-danger">
+            <h2>{{ Session::get('error') }}</h2>
+        </div>
+      @endif
       <form action="{{route('adminLogin')}}" method="post">
         <div class="form-group {{ $errors->has('username') ? 'has-error' :'' }}">
           <label for="username">Username</label>

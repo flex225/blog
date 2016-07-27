@@ -22,18 +22,14 @@
           @if(Auth::check())
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li class="{{ Request::is('admin/adminPosts') ? 'active' : '' }}"><a href="/admin/adminPosts">Posts <span class="sr-only"></span></a></li>
-                <li class="{{ Request::is('admin/controlpage') ? 'active' : '' }}"><a href="/admin/controlpage">Control Categories</a></li>
-                <li class="{{ Request::is('admin/adminUsers') ? 'active' : '' }}"><a href="/admin/adminUsers">Users</a></li>
+                <li class="{{ Request::is('admin/adminPosts') ? 'active' : '' }}"><a href="{{url('/admin/adminPosts')}}">Posts <span class="sr-only"></span></a></li>
+                <li class="{{ Request::is('admin/controlpage') ? 'active' : '' }}"><a href="{{url('/admin/controlpage')}}">Control Categories</a></li>
+                <li class="{{ Request::is('admin/adminUsers') ? 'active' : '' }}"><a href="{{url('/admin/adminUsers')}}">Users</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->username}} <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
                     <li><a href="{{ route('logout') }}">Logout</a></li>
                   </ul>
                 </li>
