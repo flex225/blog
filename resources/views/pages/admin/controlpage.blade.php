@@ -2,23 +2,35 @@
 
 @section('content')
 <div class="row">
+    <?php $other_id="";?>
   <div class="jumbotron col-md-4">
     <h4>All Post Type</h4>
     <hr>
   <ul class="categories" >
-    @if(empty($treeView->category_name))
+    @if(count($treeView)==0)
       There is no Categories!!
     @endif
-    @foreach($treeView as $category)
-      <li class="category" >
-        {{ $category->category_name }}
-        <ul class="categories" >
-          @foreach($category->subcategories as $subcategory)
-            <li class="subcategory" >{{$subcategory->subcategory_name}}</li>
-          @endforeach
-        </ul>
-      </li>
-    @endforeach
+        @foreach($treeView as $category)
+            <li class="category">
+                {{ $category->category_name }}
+                <ul class="">
+                    @foreach($category->subcategories as $subcategory)
+
+                        @if($subcategory->subcategory_name=='Այլ')
+                            <?php $other = $subcategory->subcategory_name;
+                            $other_id = $subcategory->id; ?>
+                        @else
+                            <li class="subcategory">
+                                {{$subcategory->subcategory_name}}</li>
+                        @endif
+                    @endforeach
+                    @if($other_id != 0)
+                        <li class="subcategory">
+                            {{$other}}</li><?php $other_id = 0;?>
+                    @endif
+                </ul>
+            </li>
+        @endforeach
 </ul>
   </div>
     <div class="col-md-4">
@@ -85,5 +97,49 @@
           {{ Form::token() }}
       {!! Form::close() !!}
     </div>
-</div>
+
+</div><br>
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Add Age</h4>
+            <hr>
+            <form method="post" action="{{route('add.age')}}">
+                <input type="number" class="form-control" name="from" placeholder="from" style="float: left;width: 100px;margin-right: 10px">
+                <input type="number" class="form-control " name="to" placeholder="to" style="float: left;width: 100px;margin-right: 10px">
+                <input type="submit" class="btn-success btn " value="Add">
+                {{ Form::token() }}
+            </form>
+            <h4>Delete Age</h4>
+            <hr>
+            <form method="post" action="{{route('remove.age')}}">
+                <select class="form-control" style="margin-bottom: 10px;" name="age">
+                    @foreach($ages as $age)
+                        <option value="{{ $age->id }}">{{ $age->age }}</option>
+                    @endforeach
+                </select>
+                <input type="submit" class="btn-danger btn " value="Delete" style="float:right">
+                {{ Form::token() }}
+            </form>
+        </div>
+        <div class="col-md-4">
+            <h4>Add State</h4>
+            <hr>
+            <form method="post" action="{{route('add.state')}}">
+                <input type="text" class="form-control" name="state" placeholder="State" style="float: left;width: 150px;margin-right: 10px">
+                <input type="submit" class="btn-success btn " value="Add">
+                {{ Form::token() }}
+            </form>
+            <h4>Delete State</h4>
+            <hr>
+            <form method="post" action="{{route('remove.state')}}">
+                <select class="form-control" style="margin-bottom: 10px;" name="age">
+                    @foreach($states as $state)
+                        <option value="{{ $state->id }}">{{ $state->state }}</option>
+                    @endforeach
+                </select>
+                <input type="submit" class="btn-danger btn " style="float: right;" value="Delete">
+                {{ Form::token() }}
+            </form>
+        </div>
+    </div>
 @endsection

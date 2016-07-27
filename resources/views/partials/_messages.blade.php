@@ -1,15 +1,15 @@
 @if (Session::has('success'))
 
-    <div class="alert alert-success" role="alert">
-        <strong>Success:</strong> {{ Session::get('success') }}
+    <div class="alert alert-success" role="alert" style="margin-top: 10px;;">
+        <strong></strong> {{ Session::get('success') }}
     </div>
 
 @endif
 
 @if (count($errors) > 0)
 
-    <div class="alert alert-danger" role="alert">
-        <strong>Errors:</strong>
+    <div class="alert alert-danger" role="alert" style="margin-top:10px;margin-bottom: 5px;">
+        <strong></strong>
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>

@@ -19,24 +19,34 @@
           <table class="table">
             <thead>
               <th>#</th>
-              <th>Title</th>
-              <th>Body</th>
+              <th>Username</th>
               <th>Created At</th>
+              <th>Actviated</th>
               <th></th>
             </thead>
 
             <tbody>
 
               @foreach ($users as $user)
-
+                @if($user->username == "admin")
+                @else
                 <tr>
                   <th>{{ $user->id }}</th>
-                  <td>{{ $user->title }}</td>
-                  <td>{{ substr($user->body, 0, 50) }}{{ strlen($user->body) > 50 ? "..." : "" }}</td>
+                  <td>{{ $user->username }}</td>
                   <td>{{ date('M j, Y', strtotime($user->created_at)) }}</td>
-                  <td><a href="{{ route('posts.show', $user->id) }}" class="btn btn-default btn-sm">View</a> <a href="{{ route('posts.edit', $user->id) }}" class="btn btn-default btn-sm">Edit</a></td>
+                  <td>{{ $user->activated ? "Yes" : "No" }}</td>
+                  <td><a href="{{ route('getUserInfo', $user->id) }}" class="btn btn-default btn-sm" style="float: left; margin-right: 5px;">View</a>
+                    @if($user->activated)
+                      {{ Form::open(array('route' => array('delete.user', $user->id), 'method' => 'POST')) }}
+                      <input type="submit" value="Ջնջել" class="btn btn-danger btn-sm confirm">
+                      </form><br></td>
+                    @else
+                    {{ Form::open(array('route' => array('recover.user', $user->id), 'method' => 'POST')) }}
+                    <input type="submit" value="Վերականգնել" class="btn btn-danger btn-sm">
+                    </form><br></td>
+                    @endif
                 </tr>
-
+              @endif
               @endforeach
 
             </tbody>
@@ -46,3 +56,23 @@
 
 
 @endsection
+@section('scripts')
+  {!! Html::script('/js/jquery.confirm.js') !!}
+  <script>
+
+    $(".confirm").confirm({
+      text: "Դուք ցանկանում ե՞ք ջնջել գրառումը?",
+      title: "Ջնջման հաստատում",
+      confirm: function (button) {
+        window.location.href = '{{ route('delete.user', $user->id) }}';
+      },
+      cancel: function (button) {
+      },
+      confirmButton: "Այո",
+      cancelButton: "Ոչ",
+      post: true,
+      confirmButtonClass: "btn-danger",
+      cancelButtonClass: "btn-default",
+      dialogClass: "modal-dialog modal-lg" // Bootstrap classes for large modal
+    });
+  </script>

@@ -1,4 +1,4 @@
 
-        <hr>
 
-        <p class="text-center">Copyright Arthur - All Rights Reserved</p>
+
+<img src="{{ url('/icons/sarer.png') }}" style="float:right;width:550px;height:200px">
