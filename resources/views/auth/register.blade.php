@@ -44,7 +44,7 @@
                     <input type="password" name="password_confirmation" class="form-control" id=""
                            placeholder="Կրկնել գաղտնաբառը"><br>
                     <label for="agree" style="margin-top: 10px;"><input type="checkbox" name="agree"> Ես համաձայն եմ
-                        կայքի <a target="_blank" href="#">կանոնակարգին</a></label><br>
+                        կայքի <a target="_blank" href="{{route('contacts')}}">կանոնակարգին</a></label><br>
                     <input type="submit" name="register" value="Գրանցվել" class="btn btn-primary btn-lg"
                            style="margin-top: 10px;float:right;">
                 </div>

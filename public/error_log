@@ -8,3 +8,4 @@
 [27-Jul-2016 08:23:22 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/ognevryl/public_html/art/storage/framework/views/4566e7542bd5e90ce83a1561bc734ac4765f427d.php on line 11
 [27-Jul-2016 08:23:48 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/ognevryl/public_html/art/storage/framework/views/4566e7542bd5e90ce83a1561bc734ac4765f427d.php on line 11
 [27-Jul-2016 08:26:23 UTC] PHP Parse error:  syntax error, unexpected '').datepicker({' (T_CONSTANT_ENCAPSED_STRING) in /home/ognevryl/public_html/art/storage/framework/views/3106fbf2fdfdde7f21289757da3bcd33c8257a33.php on line 63
+[27-Jul-2016 20:16:54 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/ognevryl/public_html/art/storage/framework/views/3106fbf2fdfdde7f21289757da3bcd33c8257a33.php on line 46

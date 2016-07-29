@@ -1,7 +1,5 @@
 @extends('main')
 
-@section('title', '| Գլխավոր էջ')
-
 @section('content')
 
 <div class="row">

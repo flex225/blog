@@ -154,7 +154,7 @@
             });
         });
         $(".confirm").confirm({
-            text: "Դուք ցանկանում ե՞ք ջնջել գրառումը?",
+            text: "Դուք ցանկանու՞մ եք ջնջել գրառումը",
             title: "Ջնջման հաստատում",
             confirm: function (button) {
                 window.location.href = '{{ route('deletePost', $post[0]->id) }}';
